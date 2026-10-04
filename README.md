@@ -4,6 +4,11 @@ Upload a photo, and Pixelart cuts out the main subject and redraws it as dithere
 
 Everything runs in the browser. Photos are never uploaded anywhere.
 
+## Try it
+
+- **No install:** [open in StackBlitz](https://stackblitz.com/github/Ritvik-Anand/pixelart/tree/claude/hopeful-einstein-xf84tu). It runs the dev server inside your browser tab.
+- **Hosted:** https://ritvik-anand.github.io/pixelart/ (deployed by `.github/workflows/pages.yml` on every push, once Pages is enabled; see below).
+
 ## How it works
 
 ```
@@ -30,11 +35,15 @@ image ──► background removal (AI, in a Web Worker) ──► alpha mask
 ## Development
 
 ```bash
-npm install        # if onnxruntime-node's postinstall fails, use: npm install --ignore-scripts
+npm install        # .npmrc skips install scripts (onnxruntime-node's is Node-only and unneeded)
 npm run dev        # http://localhost:5173
 npm test           # unit tests for the dither engine
 npm run build      # static site in dist/
 ```
+
+### GitHub Pages
+
+One-time setup: in the repo, go to **Settings → Pages → Build and deployment → Source** and choose **GitHub Actions**. Then re-run the "Deploy to GitHub Pages" workflow from the Actions tab, or push a commit.
 
 The build is a static site, so it deploys to any static host (Vercel, Netlify, GitHub Pages). The bundled ONNX Runtime `.wasm` is about 27 MB, which is over Cloudflare Pages' 25 MB per-file limit.
 
